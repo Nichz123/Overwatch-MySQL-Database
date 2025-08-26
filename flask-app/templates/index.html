@@ -1,5 +1,12 @@
 <html>
     <body>
-        <h1>Hello World!</h1>
+        <h1>Overwatch Database</h1>
+        <p> Welcome, feel free to click on the links to derive the schemas of the tables established in the database
+        <ul>
+            <li><a href="{{ url_for('characters') }}">Characters</a></li>
+            <li><a href="{{ url_for('affiliations') }}">Affiliations</a></li>
+            <li><a href="{{ url_for('characteraffiliations') }}">CharacterAffiliations</a></li>
+        {% block body %}
+        {% endblock %}
     </body>
 </html>

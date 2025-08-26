@@ -1,0 +1,9 @@
+{% extends 'index.html' %}
+{% block body %}
+<h2>{{table_name}} Table Schema</h2>
+<code>
+    {% for row in table%}
+    <p>{{row}}<p>
+    {% endfor %}
+</code>
+{% endblock %}
