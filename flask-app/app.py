@@ -70,7 +70,7 @@ def sql_results():
         return render_template('sql_fail.html', form_text=query, database=db_database, tables=tables, len=len(tables), table_datas=table_datas)
     else:
         # Only SELECT statements
-        if query[0:6] != "select":
+        if query[0:6].upper() != "SELECT":
             return render_template('sql_fail.html', form_text=query, database=db_database, tables=tables, len=len(tables), table_datas=table_datas)
         table_height = len(result)
         table_width = len(result[0])
