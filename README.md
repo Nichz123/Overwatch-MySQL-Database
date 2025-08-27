@@ -3,7 +3,7 @@ This web app connects to a local database made using MySQL WorkBench filled gene
 
 Note that this app only allows SQL SELECT statements to avoid modifying origonal database.
 
-<img src="image.png" width="60%" alt="Example of Web App"></img>
+<img src="image.png" width="100%" alt="Example of Web App"></img>
 
 Also note that in this example I use a local database I made of characters from a videogame I play called Overwatch.
 
