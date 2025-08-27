@@ -40,6 +40,7 @@
                 width: 80%;
                 text-align: center;
                 font-size: 20px;
+                overflow: scroll;
             }
 
             #chat-div {
@@ -63,6 +64,21 @@
                 margin: 8px 0;
                 border-radius: 8px;
                 cursor: pointer;
+            }
+
+            table {
+                margin: 8px;
+                border: 2px solid silver;
+            }
+
+            td {
+                text-align: left;
+                padding: 4px;
+                font-size: 16px;
+            }
+
+            tr:nth-child(even) {
+                background-color: Lightgreen;
             }
         </style>
     </head>
@@ -90,14 +106,18 @@
                 {% endblock %}
             </div>
             <div id="main-box">
-                <p id="sql-results">
-                    SQL results show up here
-                </p>
+                <div id="sql-results">
+                    {% block sql_results %}
+                        <p>SQL results show up here</p>
+                    {% endblock %}
+                </div>
                 <div id="chat-div">
-                    <div>
-                        <textarea placeholder="Type SQL statements here..." id="chat-input"></textarea>
-                    </div>
-                    <button id="chat-submit">Execute</button>
+                    <form id="chat-form" method="POST" action="{{ url_for('sql_results') }}">
+                        <div>
+                            <textarea placeholder="Type SQL statements here..." id="chat-input" name="chat-input" required>{{form_text}}</textarea>
+                        </div>
+                        <button id="chat-submit">Execute</button>
+                    </form>
                 </div>
             </div>
         </div>
