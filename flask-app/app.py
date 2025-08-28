@@ -4,6 +4,7 @@ from flask import Flask, request, jsonify
 from flask import render_template
 import os
 from mysql.connector import connect, Error
+from flask_socketio import SocketIO
 
 load_dotenv()
 db_user = os.getenv("MYSQL_USERNAME")
@@ -13,6 +14,7 @@ db_port = os.getenv("MYSQL_PORT")
 db_database = os.getenv("MYSQL_DATABASE")
 
 app = Flask(__name__)
+socketio = SocketIO(app)
 
 try:
     connection = connect(
@@ -21,7 +23,7 @@ try:
         password=db_password,
         database=db_database
     )
-    print("Connected:", connection.is_connected())
+    print(f"Connected to database {db_database}")
 except Error as e:
     print(e)
     exit()
@@ -58,6 +60,17 @@ def execute_sql(query):
         table = cursor.fetchall()
         return table
 
+# Event triggered when a client connects
+@socketio.on('connect')
+def handle_connect():
+    print("Connected to web client")
+
+# Event triggered when a client disconnects
+@socketio.on('disconnect')
+def handle_disconnect():
+    print("Web client disconnected")
+    os._exit(0)
+
 @app.route('/')
 def index():
     return render_template('index.html', form_text="", database=db_database, tables=tables, len=len(tables), table_datas=table_datas)
@@ -79,4 +92,4 @@ def sql_results():
 
 if __name__ == '__main__':
     webbrowser.open_new(f'http://127.0.0.1:5000/')
-    app.run(host="127.0.0.1", port=5000)
+    socketio.run(app, host="127.0.0.1", port=5000)
