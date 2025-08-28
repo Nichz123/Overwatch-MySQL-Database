@@ -100,6 +100,9 @@ def sql_results():
         # Only SELECT statements
         if query[0:6].upper() != "SELECT":
             return render_template('sql_fail.html', form_text=query, database=db_database, tables=tables, len=len(tables), table_datas=table_datas)
+        # Check is Result is emptty
+        if(not result):
+            return render_template('sql_empty.html', form_text=query, database=db_database, tables=tables, len=len(tables), table_datas=table_datas)
         table_height = len(result)
         table_width = len(result[0])
         return render_template('sql_results.html', form_text=query, width=table_width, height=table_height, result=result, database=db_database, tables=tables, len=len(tables), table_datas=table_datas)
