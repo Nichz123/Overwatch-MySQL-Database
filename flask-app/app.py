@@ -1,3 +1,4 @@
+import time
 import webbrowser
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
@@ -60,16 +61,29 @@ def execute_sql(query):
         table = cursor.fetchall()
         return table
 
+clients = 0
+
 # Event triggered when a client connects
 @socketio.on('connect')
 def handle_connect():
     print("Connected to web client")
+    global clients
+    clients += 1
+
+def checkRefresh():
+    time.sleep(2)
+    return (clients > 0)
 
 # Event triggered when a client disconnects
 @socketio.on('disconnect')
 def handle_disconnect():
-    print("Web client disconnected")
-    os._exit(0)
+    global clients
+    clients -= 1
+    if(checkRefresh()):
+        print("Client refereshed OR another client still connected")
+    else: 
+        print("Web client disconnected")
+        os._exit(0)
 
 @app.route('/')
 def index():
