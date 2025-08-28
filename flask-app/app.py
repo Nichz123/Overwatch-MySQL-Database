@@ -1,3 +1,4 @@
+import webbrowser
 from dotenv import load_dotenv
 from flask import Flask, request, jsonify
 from flask import render_template
@@ -77,4 +78,5 @@ def sql_results():
         return render_template('sql_results.html', form_text=query, width=table_width, height=table_height, result=result, database=db_database, tables=tables, len=len(tables), table_datas=table_datas)
 
 if __name__ == '__main__':
-    app.run()
+    webbrowser.open_new(f'http://127.0.0.1:5000/')
+    app.run(host="127.0.0.1", port=5000)

@@ -22,3 +22,15 @@ MYSQL_PORT = YOUR_PORT
 MYSQL_DATABASE = YOUR_DATABASE
 ```
 Replace YOUR_* fields with the relevant info from your MySQL Workbench
+
+## Running the app
+
+To use the app, locate app.py in the flask-app directory and run it.
+
+The app is programming to run on an automatically opened new window at http://127.0.0.1:5000 as defined app.py:
+```
+if __name__ == '__main__':
+    webbrowser.open_new(f'http://127.0.0.1:5000/')
+    app.run(host="127.0.0.1", port=5000)
+```
+If you wish to change the host or port of the web app I would do so here.
