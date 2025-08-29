@@ -70,20 +70,26 @@ def handle_connect():
     global clients
     clients += 1
 
-def checkRefresh():
-    time.sleep(10)
-    return (clients > 0)
+
+sleeping = False
 
 # Event triggered when a client disconnects
 @socketio.on('disconnect')
 def handle_disconnect():
     global clients
     clients -= 1
-    if(checkRefresh()):
-        print("Client refereshed OR another client still connected")
-    else: 
-        print("Web client disconnected")
-        os._exit(0)
+    global sleeping
+
+    if(not sleeping):
+        sleeping = True
+        time.sleep(5)
+        sleeping = False
+        if(clients):
+            print("Client refereshed OR another client still connected")
+        else: 
+            print("Web client disconnected")
+            os._exit(0)
+    
 
 @app.route('/')
 def index():
