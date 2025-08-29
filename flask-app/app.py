@@ -71,7 +71,7 @@ def handle_connect():
     clients += 1
 
 def checkRefresh():
-    time.sleep(2)
+    time.sleep(10)
     return (clients > 0)
 
 # Event triggered when a client disconnects
